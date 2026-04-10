@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações - Gestão de Tarefas</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        .notificacoes-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .notificacao-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .notificacao-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .notificacao-item.unread {
+            background: #f0f2ff;
+            border-left-color: #667eea;
+        }
+        
+        .notificacao-icone {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .notificacao-conteudo {
+            flex: 1;
+        }
+        
+        .notificacao-titulo {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .notificacao-texto {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .notificacao-tempo {
+            font-size: 0.8rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notificacao-acoes {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .icone-info {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .icone-sucesso {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .icone-aviso {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .icone-perigo {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+        
+        .filtro-notificacoes {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filtro-tag {
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .filtro-tag:hover {
+            background: #f0f2f5;
+        }
+        
+        .filtro-tag.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span>📋 Golden-Place</span>
+            </div>
+            <div class="user-info">
+                <span class="user-name">João Silva</span>
+                <div class="notification-badge">🔔</div>
+                <a href="index.html" class="btn btn-danger" style="padding: 5px 10px;">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 Dashboard</a></li>
+            <li><a href="tarefas.html">✅ Tarefas</a></li>
+            <li><a href="equipes.html">👥 Equipes</a></li>
+            <li><a href="kpis.html">📈 KPIs</a></li>
+            <li class="active"><a href="notificacoes.html">🔔 Notificações</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="container notificacoes-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h1>🔔 Centro de Notificações</h1>
+                <button class="btn btn-primary" onclick="marcarTodasLidas()">
+                    ✓ Marcar todas como lidas
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filtro-notificacoes">
+                <span class="filtro-tag active" onclick="filtrarNotificacoes(this, 'todas')">Todas</span>
+                <span class="filtro-tag" onclick="filtrarNotificacoes(this, 'naolidas')">Não lidas</span>
+                <span class="filtro-tag" onclick="filtrarNotificacoes(this, 'lidas')">Lidas</span>
+                <span class="filtro-tag" onclick="filtrarNotificacoes(this, 'tarefas')">Tarefas</span>
+                <span class="filtro-tag" onclick="filtrarNotificacoes(this, 'equipes')">Equipes</span>
+                <span class="filtro-tag" onclick="filtrarNotificacoes(this, 'prazos')">Prazos</span>
+            </div>
+
+            <!-- Lista de Notificações -->
+            <div id="listaNotificacoes">
+                <!-- Não lida -->
+                <div class="notificacao-item unread" data-lida="false" data-tipo="prazo">
+                    <div class="notificacao-icone icone-aviso">⏰</div>
+                    <div class="notificacao-conteudo">
+                        <div class="notificacao-titulo">Prazo próximo: Relatório Mensal</div>
+                        <div class="notificacao-texto">
+                            A tarefa "Relatório Mensal" vence amanhã (20/03/2024)
+                        </div>
+                        <div class="notificacao-tempo">
+                            <span>🕐 há 2 horas</span>
+                            <span class="status-badge status-pendente">Não lida</span>
+                        </div>
+                    </div>
+                    <div class="notificacao-acoes">
+                        <button class="btn btn-primary btn-icon" onclick="marcarLida(this)">✓</button>
+                        <button class="btn btn-danger btn-icon" onclick="excluirNotificacao(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Não lida -->
+                <div class="notificacao-item unread" data-lida="false" data-tipo="tarefa">
+                    <div class="notificacao-icone icone-sucesso">✅</div>
+                    <div class="notificacao-conteudo">
+                        <div class="notificacao-titulo">Tarefa concluída</div>
+                        <div class="notificacao-texto">
+                            Maria Santos concluiu a tarefa "Desenvolver módulo de login"
+                        </div>
+                        <div class="notificacao-tempo">
+                            <span>🕐 há 5 horas</span>
+                            <span class="status-badge status-pendente">Não lida</span>
+                        </div>
+                    </div>
+                    <div class="notificacao-acoes">
+                        <button class="btn btn-primary btn-icon" onclick="marcarLida(this)">✓</button>
+                        <button class="btn btn-danger btn-icon" onclick="excluirNotificacao(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Lida -->
+                <div class="notificacao-item" data-lida="true" data-tipo="comentario">
+                    <div class="notificacao-icone icone-info">💬</div>
+                    <div class="notificacao-conteudo">
+                        <div class="notificacao-titulo">Novo comentário</div>
+                        <div class="notificacao-texto">
+                            Pedro Costa comentou na tarefa "Revisão de código"
+                        </div>
+                        <div class="notificacao-tempo">
+                            <span>🕐 ontem</span>
+                            <span class="status-badge status-concluida">Lida</span>
+                        </div>
+                    </div>
+                    <div class="notificacao-acoes">
+                        <button class="btn btn-danger btn-icon" onclick="excluirNotificacao(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Lida -->
+                <div class="notificacao-item" data-lida="true" data-tipo="equipe">
+                    <div class="notificacao-icone icone-info">👥</div>
+                    <div class="notificacao-conteudo">
+                        <div class="notificacao-titulo">Adicionado à equipe</div>
+                        <div class="notificacao-texto">
+                            Você foi adicionado à equipe "Desenvolvimento"
+                        </div>
+                        <div class="notificacao-tempo">
+                            <span>🕐 3 dias atrás</span>
+                            <span class="status-badge status-concluida">Lida</span>
+                        </div>
+                    </div>
+                    <div class="notificacao-acoes">
+                        <button class="btn btn-danger btn-icon" onclick="excluirNotificacao(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Atrasada -->
+                <div class="notificacao-item unread" data-lida="false" data-tipo="atraso">
+                    <div class="notificacao-icone icone-perigo">⚠️</div>
+                    <div class="notificacao-conteudo">
+                        <div class="notificacao-titulo">Tarefa atrasada</div>
+                        <div class="notificacao-texto">
+                            A tarefa "Documentação da API" está atrasada (prazo: 15/03/2024)
+                        </div>
+                        <div class="notificacao-tempo">
+                            <span>🕐 4 dias atrás</span>
+                            <span class="status-badge status-pendente">Não lida</span>
+                        </div>
+                    </div>
+                    <div class="notificacao-acoes">
+                        <button class="btn btn-primary btn-icon" onclick="marcarLida(this)">✓</button>
+                        <button class="btn btn-danger btn-icon" onclick="excluirNotificacao(this)">✕</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rodapé -->
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: white; border-radius: 10px;">
+                <p style="color: #666;">
+                    Mostrando 5 de 12 notificações
+                </p>
+                <button class="btn btn-primary" onclick="carregarMais()">
+                    Carregar mais
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        function marcarLida(botao) {
+            const item = botao.closest('.notificacao-item');
+            item.classList.remove('unread');
+            item.dataset.lida = 'true';
+
+            // Atualizar badge
+            const tempoDiv = item.querySelector('.notificacao-tempo');
+            const badgeExistente = tempoDiv.querySelector('.status-badge');
+            if (badgeExistente) {
+                badgeExistente.remove();
+            }
+
+            const badge = document.createElement('span');
+            badge.className = 'status-badge status-concluida';
+            badge.textContent = 'Lida';
+            tempoDiv.appendChild(badge);
+
+            // Esconder botão de marcar lida
+            botao.style.display = 'none';
+
+            atualizarBadgeGlobal();
+        }
+
+        function excluirNotificacao(botao) {
+            if (confirm('Remover esta notificação?')) {
+                const item = botao.closest('.notificacao-item');
+                item.remove();
+                atualizarBadgeGlobal();
+                alert('Notificação removida (simulação)');
+            }
+        }
+
+        function marcarTodasLidas() {
+            const naoLidas = document.querySelectorAll('.notificacao-item.unread');
+            naoLidas.forEach(item => {
+                item.classList.remove('unread');
+                item.dataset.lida = 'true';
+
+                const tempoDiv = item.querySelector('.notificacao-tempo');
+                const badgeExistente = tempoDiv.querySelector('.status-badge');
+                if (badgeExistente) {
+                    badgeExistente.remove();
+                }
+
+                const badge = document.createElement('span');
+                badge.className = 'status-badge status-concluida';
+                badge.textContent = 'Lida';
+                tempoDiv.appendChild(badge);
+
+                const botoesMarcar = item.querySelectorAll('.btn-primary');
+                botoesMarcar.forEach(btn => {
+                    if (btn.textContent === '✓') {
+                        btn.style.display = 'none';
+                    }
+                });
+            });
+
+            atualizarBadgeGlobal();
+            alert('Todas as notificações marcadas como lidas');
+        }
+
+        function filtrarNotificacoes(elemento, filtro) {
+            // Atualizar active
+            document.querySelectorAll('.filtro-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            elemento.classList.add('active');
+
+            const notificacoes = document.querySelectorAll('.notificacao-item');
+
+            notificacoes.forEach(notif => {
+                switch (filtro) {
+                    case 'todas':
+                        notif.style.display = 'flex';
+                        break;
+                    case 'naolidas':
+                        notif.style.display = notif.dataset.lida === 'false' ? 'flex' : 'none';
+                        break;
+                    case 'lidas':
+                        notif.style.display = notif.dataset.lida === 'true' ? 'flex' : 'none';
+                        break;
+                    default:
+                        // Filtrar por tipo
+                        notif.style.display = notif.dataset.tipo === filtro ? 'flex' : 'none';
+                }
+            });
+        }
+
+        function atualizarBadgeGlobal() {
+            const naoLidas = document.querySelectorAll('.notificacao-item.unread').length;
+            const badge = document.querySelector('.notification-badge');
+
+            if (badge) {
+                if (naoLidas > 0) {
+                    badge.setAttribute('data-count', naoLidas);
+                    // CSS pseudo-element não pode ser alterado diretamente, mas podemos simular
+                    console.log(`Notificações não lidas: ${naoLidas}`);
+                }
+            }
+        }
+
+        function carregarMais() {
+            alert('Carregando mais notificações... (simulação)');
+            // Futuramente: carregar via AJAX
+        }
+    </script>
+</body>
+
+</html>

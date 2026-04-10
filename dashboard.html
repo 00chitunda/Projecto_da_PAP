@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gestão de Tarefas</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span>📋 Golden-Place</span>
+            </div>
+            <div class="user-info">
+                <span class="user-name">João Silva (Membro)</span>
+                <div class="notification-badge">🔔</div>
+                <a href="index.html" class="btn btn-danger" style="padding: 5px 10px;">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Lateral -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="active"><a href="dashboard.html">📊 Dashboard</a></li>
+            <li><a href="tarefas.html">✅ Tarefas</a></li>
+            <li><a href="equipes.html">👥 Equipes</a></li>
+            <li><a href="kpis.html">📈 KPIs</a></li>
+            <li><a href="notificacoes.html">🔔 Notificações</a></li>
+        </ul>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="container">
+            <h1 style="margin-bottom: 30px;">Dashboard</h1>
+
+            <!-- Cards de resumo -->
+            <div class="grid grid-4" style="margin-bottom: 30px;">
+                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h3>Tarefas Pendentes</h3>
+                    <p style="font-size: 2.5rem; font-weight: bold; margin: 10px 0;">12</p>
+                    <small>2 com prazo próximo</small>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: white;">
+                    <h3>Em Andamento</h3>
+                    <p style="font-size: 2.5rem; font-weight: bold; margin: 10px 0;">8</p>
+                    <small>3 em atraso</small>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); color: white;">
+                    <h3>Concluídas</h3>
+                    <p style="font-size: 2.5rem; font-weight: bold; margin: 10px 0;">45</p>
+                    <small>Este mês</small>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); color: white;">
+                    <h3>Equipes</h3>
+                    <p style="font-size: 2.5rem; font-weight: bold; margin: 10px 0;">3</p>
+                    <small>12 membros ativos</small>
+                </div>
+            </div>
+
+            <!-- Gráfico e Próximas Tarefas -->
+            <div class="grid grid-2">
+                <!-- Gráfico (simulado) -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Progresso da Semana</h3>
+                        <select class="form-control" style="width: auto;">
+                            <option>Últimos 7 dias</option>
+                            <option>Últimos 30 dias</option>
+                        </select>
+                    </div>
+                    <div style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                        📊 [Área do gráfico - a implementar com Chart.js futuramente]
+                    </div>
+                </div>
+
+                <!-- Próximas Tarefas -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Próximas Tarefas</h3>
+                        <a href="tarefas.html" class="btn btn-primary">Ver todas</a>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tarefa</th>
+                                <th>Prazo</th>
+                                <th>Prioridade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Relatório mensal</td>
+                                <td>20/03/2024</td>
+                                <td><span class="priority-high">🔴 Alta</span></td>
+                            </tr>
+                            <tr>
+                                <td>Revisão de código</td>
+                                <td>21/03/2024</td>
+                                <td><span class="priority-medium">🟡 Média</span></td>
+                            </tr>
+                            <tr>
+                                <td>Documentação</td>
+                                <td>22/03/2024</td>
+                                <td><span class="priority-low">🟢 Baixa</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- KPIs Rápidos -->
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Indicadores Rápidos (KPIs)</h3>
+                    <a href="kpis.html" class="btn btn-primary">Ver detalhes</a>
+                </div>
+
+                <div class="grid grid-3">
+                    <div>
+                        <h4>Taxa de Conclusão</h4>
+                        <p style="font-size: 1.5rem; color: #48bb78;">75%</p>
+                        <progress value="75" max="100" style="width: 100%; height: 10px;"></progress>
+                    </div>
+
+                    <div>
+                        <h4>Tarefas por Membro</h4>
+                        <ul style="list-style: none;">
+                            <li>João: 8 tarefas</li>
+                            <li>Maria: 12 tarefas</li>
+                            <li>Pedro: 5 tarefas</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Desempenho da Equipe</h4>
+                        <p style="font-size: 1.5rem; color: #667eea;">4.5 ⭐</p>
+                        <small>Baseado em 45 avaliações</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

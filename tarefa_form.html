@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Tarefa - Gestão de Tarefas</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span>📋 Golden-Place</span>
+            </div>
+            <div class="user-info">
+                <span class="user-name">João Silva (Membro)</span>
+                <div class="notification-badge">🔔</div>
+                <a href="index.html" class="btn btn-danger" style="padding: 5px 10px;">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 Dashboard</a></li>
+            <li><a href="tarefas.html">✅ Tarefas</a></li>
+            <li><a href="equipes.html">👥 Equipes</a></li>
+            <li><a href="kpis.html">📈 KPIs</a></li>
+            <li><a href="notificacoes.html">🔔 Notificações</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h1>➕ Nova Tarefa</h1>
+                <a href="tarefas.html" class="btn">← Voltar</a>
+            </div>
+
+            <div class="card">
+                <form id="tarefaForm">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="titulo">Título da Tarefa *</label>
+                            <input type="text" class="form-control" id="titulo" placeholder="Ex: Desenvolver módulo de login" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="responsavel">Responsável *</label>
+                            <select class="form-control" id="responsavel" required>
+                                <option value="">Selecione...</option>
+                                <option value="1">João Silva</option>
+                                <option value="2">Maria Santos</option>
+                                <option value="3">Pedro Costa</option>
+                                <option value="4">Ana Oliveira</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipe">Equipe</label>
+                            <select class="form-control" id="equipe">
+                                <option value="">Nenhuma</option>
+                                <option value="1">Desenvolvimento</option>
+                                <option value="2">Documentação</option>
+                                <option value="3">Qualidade</option>
+                                <option value="4">Gestão</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prazo">Prazo *</label>
+                            <input type="date" class="form-control" id="prazo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prioridade">Prioridade *</label>
+                            <select class="form-control" id="prioridade" required>
+                                <option value="baixa">Baixa</option>
+                                <option value="media" selected>Média</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Status *</label>
+                            <select class="form-control" id="status" required>
+                                <option value="pendente">Pendente</option>
+                                <option value="andamento">Em Andamento</option>
+                                <option value="concluida">Concluída</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea class="form-control" id="descricao" rows="5" placeholder="Descreva os detalhes da tarefa..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="anexos">Anexos (máx 5MB por arquivo)</label>
+                        <input type="file" class="form-control" id="anexos" multiple accept=".pdf,.doc,.docx,.jpg,.png">
+                        <small style="color: #666;">Formatos aceitos: PDF, DOC, DOCX, JPG, PNG</small>
+                    </div>
+
+                    <hr style="margin: 20px 0;">
+
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button type="button" class="btn" onclick="window.location.href='tarefas.html'">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Tarefa</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Se for edição, mostrar histórico (opcional) -->
+            <div class="card" style="margin-top: 30px;" id="historico" style="display: none;">
+                <h3>Histórico de Alterações</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Usuário</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>19/03/2024 10:30</td>
+                            <td>João Silva</td>
+                            <td>Criou a tarefa</td>
+                        </tr>
+                        <tr>
+                            <td>19/03/2024 11:45</td>
+                            <td>Maria Santos</td>
+                            <td>Alterou status para "Em Andamento"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Verificar se é edição (via URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const tarefaId = urlParams.get('id');
+
+        if (tarefaId) {
+            document.querySelector('h1').textContent = '✏️ Editar Tarefa';
+            document.getElementById('historico').style.display = 'block';
+
+            // Simular carregamento de dados
+            document.getElementById('titulo').value = 'Desenvolver módulo de login';
+            document.getElementById('responsavel').value = '1';
+            document.getElementById('prazo').value = '2024-03-20';
+            document.getElementById('prioridade').value = 'alta';
+            document.getElementById('status').value = 'andamento';
+            document.getElementById('descricao').value = 'Implementar autenticação JWT e validação de tokens.';
+        }
+
+        // Validação do formulário
+        document.getElementById('tarefaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const titulo = document.getElementById('titulo').value;
+            const responsavel = document.getElementById('responsavel').value;
+            const prazo = document.getElementById('prazo').value;
+
+            if (titulo.length < 3) {
+                alert('O título deve ter pelo menos 3 caracteres');
+                return;
+            }
+
+            if (!responsavel) {
+                alert('Selecione um responsável');
+                return;
+            }
+
+            if (!prazo) {
+                alert('Defina um prazo');
+                return;
+            }
+
+            // Validar se prazo não é no passado
+            const dataPrazo = new Date(prazo);
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+
+            if (dataPrazo < hoje) {
+                alert('O prazo não pode ser no passado');
+                return;
+            }
+
+            alert(tarefaId ? 'Tarefa atualizada com sucesso!' : 'Tarefa criada com sucesso!');
+            window.location.href = 'tarefas.html';
+        });
+    </script>
+</body>
+
+</html>

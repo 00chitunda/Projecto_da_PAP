@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas - Gestão de Tarefas</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        .filtros {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filtro-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .acoes-tabela {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-icon {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cabeçalho (igual ao dashboard) -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span>📋 Golden-Place</span>
+            </div>
+            <div class="user-info">
+                <span class="user-name">João Silva (Membro)</span>
+                <div class="notification-badge">🔔</div>
+                <a href="index.html" class="btn btn-danger" style="padding: 5px 10px;">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Lateral -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 Dashboard</a></li>
+            <li><a href="tarefas.html">✅ Tarefas</a></li>
+            <li><a href="equipes.html">👥 Equipes</a></li>
+            <li><a href="kpis.html">📈 KPIs</a></li>
+            <li><a href="notificacoes.html">🔔 Notificações</a></li>
+        </ul>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Cabeçalho da página -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h1>📋 Tarefas</h1>
+                <a href="tarefa_form.html" class="btn btn-primary">+ Nova Tarefa</a>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filtros">
+                <div class="filtro-group">
+                    <label for="status" style="display: block; margin-bottom: 5px;">Status</label>
+                    <select id="status" class="form-control filter-select">
+                        <option value="todas">Todas</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="andamento">Em Andamento</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+                </div>
+
+                <div class="filtro-group">
+                    <label for="responsavel" style="display: block; margin-bottom: 5px;">Responsável</label>
+                    <select id="responsavel" class="form-control filter-select">
+                        <option value="todos">Todos</option>
+                        <option value="eu">Eu</option>
+                        <option value="joao">João</option>
+                        <option value="maria">Maria</option>
+                        <option value="pedro">Pedro</option>
+                    </select>
+                </div>
+
+                <div class="filtro-group">
+                    <label for="prioridade" style="display: block; margin-bottom: 5px;">Prioridade</label>
+                    <select id="prioridade" class="form-control filter-select">
+                        <option value="todas">Todas</option>
+                        <option value="alta">Alta</option>
+                        <option value="media">Média</option>
+                        <option value="baixa">Baixa</option>
+                    </select>
+                </div>
+
+                <div class="filtro-group">
+                    <label for="busca" style="display: block; margin-bottom: 5px;">Buscar</label>
+                    <input type="text" id="busca" class="form-control" placeholder="Buscar tarefas...">
+                </div>
+            </div>
+
+            <!-- Tabela de Tarefas -->
+            <div class="card">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Responsável</th>
+                            <th>Equipe</th>
+                            <th>Prazo</th>
+                            <th>Prioridade</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="tarefa_detalhe.html" style="color: #667eea; text-decoration: none;">Desenvolver módulo de login</a></td>
+                            <td>João Silva</td>
+                            <td>Desenvolvimento</td>
+                            <td>20/03/2024</td>
+                            <td><span class="priority-high">🔴 Alta</span></td>
+                            <td><span class="status-badge status-andamento">Em Andamento</span></td>
+                            <td>
+                                <div class="acoes-tabela">
+                                    <a href="tarefa_form.html?id=1" class="btn btn-warning btn-icon">✏️</a>
+                                    <button class="btn btn-danger btn-icon btn-action">🗑️</button>
+                                    <button class="btn btn-success btn-icon btn-action">✓</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><a href="tarefa_detalhe.html" style="color: #667eea; text-decoration: none;">Criar documentação da API</a></td>
+                            <td>Maria Santos</td>
+                            <td>Documentação</td>
+                            <td>22/03/2024</td>
+                            <td><span class="priority-medium">🟡 Média</span></td>
+
+                            <td>18/03/2024</td>
+                            <td><span class="priority-low">🟢 Baixa</span></td>
+                            <td><span class="status-badge status-concluida">Concluída</span></td>
+                            <td>
+                                <div class="acoes-tabela">
+                                    <td><span class="status-badge status-pendente">Pendente</span></td>
+                                    <td>
+                                        <div class="acoes-tabela">
+                                            <a href="tarefa_form.html?id=2" class="btn btn-warning btn-icon">✏️</a>
+                                            <button class="btn btn-danger btn-icon btn-action">🗑️</button>
+                                            <button class="btn btn-success btn-icon btn-action">✓</button>
+                                        </div>
+                                    </td>
+                        </tr>
+
+                        <tr>
+                            <td><a href="tarefa_detalhe.html" style="color: #667eea; text-decoration: none;">Testar funcionalidades</a></td>
+                            <td>Pedro Costa</td>
+                            <td>Qualidade</td> <a href="tarefa_form.html?id=3" class="btn btn-warning btn-icon">✏️</a>
+                            <button class="btn btn-danger btn-icon btn-action">🗑️</button>
+                            <button class="btn btn-success btn-icon btn-action" disabled>✓</button>
+                            </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><a href="tarefa_detalhe.html" style="color: #667eea; text-decoration: none;">Reunião com cliente</a></td>
+                            <td>João Silva</td>
+                            <td>Gestão</td>
+                            <td>19/03/2024</td>
+                            <td><span class="priority-high">🔴 Alta</span></td>
+                            <td><span class="status-badge status-pendente">Pendente</span></td>
+                            <td>
+                                <div class="acoes-tabela">
+                                    <a href="tarefa_form.html?id=4" class="btn btn-warning btn-icon">✏️</a>
+                                    <button class="btn btn-danger btn-icon btn-action">🗑️</button>
+                                    <button class="btn btn-success btn-icon btn-action">✓</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Paginação -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <div>
+                        Mostrando 1 a 4 de 12 tarefas
+                    </div>
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn" disabled>« Anterior</button>
+                        <button class="btn btn-primary">1</button>
+                        <button class="btn">2</button>
+                        <button class="btn">3</button>
+                        <button class="btn">Próxima »</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Filtro de busca simples (client-side)
+        document.getElementById('busca').addEventListener('keyup', function() {
+            const termo = this.value.toLowerCase();
+            const linhas = document.querySelectorAll('tbody tr');
+
+            linhas.forEach(linha => {
+                const texto = linha.textContent.toLowerCase();
+                if (texto.includes(termo)) {
+                    linha.style.display = '';
+                } else {
+                    linha.style.display = 'none';
+                }
+            });
+        });
+
+        // Simular filtros
+        document.querySelectorAll('.filter-select').forEach(select => {
+            select.addEventListener('change', function() {
+                alert(`Filtrando por ${this.previousElementSibling.textContent}: ${this.value}`);
+            });
+        });
+    </script>
+</body>
+
+</html>

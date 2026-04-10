@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Tarefa - Gestão de Tarefas</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        .comentario {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comentario-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .comentario-conteudo {
+            flex: 1;
+        }
+        
+        .comentario-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .comentario-autor {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .comentario-data {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .anexo-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span>📋 TaskManager</span>
+            </div>
+            <div class="user-info">
+                <span class="user-name">João Silva (Membro)</span>
+                <div class="notification-badge">🔔</div>
+                <a href="index.html" class="btn btn-danger" style="padding: 5px 10px;">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 Dashboard</a></li>
+            <li><a href="tarefas.html">✅ Tarefas</a></li>
+            <li><a href="equipes.html">👥 Equipes</a></li>
+            <li><a href="kpis.html">📈 KPIs</a></li>
+            <li><a href="notificacoes.html">🔔 Notificações</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- Cabeçalho com ações -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div>
+                    <a href="tarefas.html" style="color: #667eea; text-decoration: none;">← Voltar para lista</a>
+                    <h1 style="margin-top: 10px;">Desenvolver módulo de login</h1>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <a href="tarefa_form.html?id=1" class="btn btn-warning">✏️ Editar</a>
+                    <button class="btn btn-danger btn-action">🗑️ Excluir</button>
+                    <button class="btn btn-success btn-action">✓ Concluir</button>
+                </div>
+            </div>
+
+            <!-- Informações principais -->
+            <div class="info-grid">
+                <div>
+                    <strong>Status:</strong><br>
+                    <span class="status-badge status-andamento">Em Andamento</span>
+                </div>
+                <div>
+                    <strong>Prioridade:</strong><br>
+                    <span class="priority-high">🔴 Alta</span>
+                </div>
+                <div>
+                    <strong>Responsável:</strong><br> João Silva
+                </div>
+                <div>
+                    <strong>Equipe:</strong><br> Desenvolvimento
+                </div>
+                <div>
+                    <strong>Criado por:</strong><br> Admin em 15/03/2024
+                </div>
+                <div>
+                    <strong>Prazo:</strong><br> 20/03/2024 <span style="color: #e53e3e;">(2 dias restantes)</span>
+                </div>
+            </div>
+
+            <!-- Descrição -->
+            <div class="card">
+                <h3>Descrição</h3>
+                <p style="margin-top: 15px; line-height: 1.6;">
+                    Implementar o módulo de autenticação do sistema incluindo:
+                    <br><br> - Tela de login com validação<br> - Recuperação de senha<br> - Integração com JWT<br> - Proteção de rotas<br> - Testes de segurança
+                </p>
+            </div>
+
+            <!-- Anexos -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3>📎 Anexos</h3>
+                    <button class="btn btn-primary" id="btnAnexo">+ Adicionar Anexo</button>
+                </div>
+
+                <div class="anexo-item">
+                    <span>📄</span>
+                    <div style="flex: 1;">
+                        <strong>especificacao_login.pdf</strong><br>
+                        <small>2.5 MB • Adicionado por João em 16/03/2024</small>
+                    </div>
+                    <button class="btn btn-primary btn-icon">⬇️</button>
+                </div>
+
+                <div class="anexo-item">
+                    <span>🖼️</span>
+                    <div style="flex: 1;">
+                        <strong>mockup_tela.png</strong><br>
+                        <small>1.2 MB • Adicionado por Maria em 17/03/2024</small>
+                    </div>
+                    <button class="btn btn-primary btn-icon">⬇️</button>
+                </div>
+            </div>
+
+            <!-- Comentários -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3>💬 Comentários (3)</h3>
+                </div>
+
+                <!-- Lista de comentários -->
+                <div style="margin-bottom: 20px;">
+                    <div class="comentario">
+                        <div class="comentario-avatar">JS</div>
+                        <div class="comentario-conteudo">
+                            <div class="comentario-header">
+                                <span class="comentario-autor">João Silva</span>
+                                <span class="comentario-data">18/03/2024 14:30</span>
+                            </div>
+                            <p>Já implementei a tela de login. Preciso revisar a validação dos tokens.</p>
+                        </div>
+                    </div>
+
+                    <div class="comentario">
+                        <div class="comentario-avatar">MS</div>
+                        <div class="comentario-conteudo">
+                            <div class="comentario-header">
+                                <span class="comentario-autor">Maria Santos</span>
+                                <span class="comentario-data">18/03/2024 15:45</span>
+                            </div>
+                            <p>Vou testar hoje à noite. Depois te dou feedback.</p>
+                        </div>
+                    </div>
+
+                    <div class="comentario">
+                        <div class="comentario-avatar">PC</div>
+                        <div class="comentario-conteudo">
+                            <div class="comentario-header">
+                                <span class="comentario-autor">Pedro Costa</span>
+                                <span class="comentario-data">19/03/2024 09:15</span>
+                            </div>
+                            <p>Encontrei um bug na validação do email. Vou abrir uma issue.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Novo comentário -->
+                <div style="display: flex; gap: 10px;">
+                    <textarea class="form-control" rows="3" placeholder="Escreva um comentário..." style="flex: 1;"></textarea>
+                    <button class="btn btn-primary" style="align-self: flex-end;">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('btnAnexo').addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.click();
+
+            input.onchange = function() {
+                alert('Arquivo selecionado: ' + input.files[0].name);
+                // Futuramente: enviar para o servidor
+            };
+        });
+
+        // Simular botão concluir
+        document.querySelector('.btn-success').addEventListener('click', function() {
+            if (confirm('Marcar tarefa como concluída?')) {
+                alert('Tarefa concluída!');
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>
